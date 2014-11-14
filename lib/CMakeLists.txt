@@ -31,7 +31,8 @@ CONFIGURE_FILE(
     ${CMAKE_CURRENT_BINARY_DIR}/libbtbb.pc
 @ONLY)
 
-INSTALL(
-    FILES ${CMAKE_CURRENT_BINARY_DIR}/libbtbb.pc
-    DESTINATION lib${LIB_SUFFIX}/pkgconfig
-)
+# Didn't think it was necessary to install this
+#INSTALL(
+#    FILES ${CMAKE_CURRENT_BINARY_DIR}/libbtbb.pc
+#    DESTINATION lib${LIB_SUFFIX}/pkgconfig
+#)

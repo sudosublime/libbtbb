@@ -64,12 +64,17 @@ add_definitions( -DVERSION="${VERSION}" )
 add_definitions( -DRELEASE="${RELEASE}" )
 
 # Comment the following out for releases.
-set(CMAKE_C_FLAGS "$ENV{CFLAGS}")
+set (CMAKE_C_FLAGS "$ENV{CFLAGS}")
+
+set (CMAKE_INSTALL_PREFIX "/usr/local")
+set (CMAKE_INCLUDE_PATH "/usr/local")
+set (CPACK_PACKAGING_INSTALL_PREFIX ${CMAKE_INSTALL_PREFIX})
 
 add_subdirectory(lib)
 if(NOT DISABLE_PYTHON)
-	add_subdirectory(python)
+add_subdirectory(python)
 endif()
+
 
 # Create uninstall target
 configure_file(
@@ -80,3 +85,18 @@ configure_file(
 add_custom_target(uninstall
     ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake
 )
+
+set (CPACK_GENERATOR "DEB")
+set (CPACK_PACKAGE_NAME "libbtbb")
+set (CPACK_PACKAGE_VERSION_MAJOR ${MAJOR_VERSION})
+set (CPACK_PACKAGE_VERSION_MINOR ${MINOR_VERSION})
+set (CPACK_PACKAGE_VERSION_PATCH "0")
+set (CPACK_DEBIAN_PACKAGE_ARCHITECTURE "amd64")
+set (CPACK_DEBIAN_PACKAGE_MAINTAINER "sudosublime")
+set (CPACK_PACKAGE_DESCRIPTION_SUMMARY "A Bluetooth baseband decoding library")
+set (CPACK_PACKAGE_FILE_NAME "${PROJECT_NAME}-${MAJOR_VERSION}.${MINOR_VERSION}.0-${CMAKE_SYSTEM_NAME}-${CPACK_DEBIAN_PACKAGE_ARCHITECTURE}")
+
+
+
+INCLUDE(CPack)
+
